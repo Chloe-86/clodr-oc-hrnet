@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import Modal from "cdr-react-modal";
+import Modal from "@clodr/oc-cdr-react-modal"
 import { states } from "../data/states.js";
 import { StoreContext } from "../context/StoreContext.jsx";
 import { Formik, Field, Form, ErrorMessage } from "formik";
