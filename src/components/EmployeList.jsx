@@ -1,11 +1,19 @@
 import { useState, useContext } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { StoreContext } from "../context/StoreContext.jsx";
+import DOMPurify from 'dompurify';
 
 const List = () => {
   const { employees } = useContext(StoreContext);
   const users = employees;
   const [searchTerm, setSearchTerm] = useState("");
+
+
+  const sanitizeSearchTerm = (term) => {
+    return DOMPurify.sanitize(term); // Nettoie le texte pour éviter les injections malveillantes
+  };
+
+  sanitizeSearchTerm(searchTerm);
 
   const columns = [
     { field: "name", headerName: "Name", headerClassName: 'super-app-theme--header', width: 150 },
