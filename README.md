@@ -20,12 +20,12 @@ Ce projet est une application simple de gestion des employés, construite avec R
 
 1.  Cloner le dépôt :
 
-git clone <repository-url>
+git clone https://github.com/Chloe-86/clodr-oc-hrnet.git
 
 
 2.  Naviguer vers le répertoire du projet :
 
-cd hrnet
+cd clodr-oc-hrnet
 
 3.  Installer les dépendances :
 
