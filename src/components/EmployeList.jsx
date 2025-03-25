@@ -10,7 +10,7 @@ const List = () => {
 
 
   const sanitizeSearchTerm = (term) => {
-    return DOMPurify.sanitize(term); // Nettoie le texte pour éviter les injections malveillantes
+    return DOMPurify.sanitize(term);
   };
 
   sanitizeSearchTerm(searchTerm);

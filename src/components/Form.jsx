@@ -11,10 +11,9 @@ const validationSchema = Yup.object({
   name: Yup.string().trim().required("Le nom est requis"),
   lastName: Yup.string().trim().required("Le prénom est requis"),
   dateOfBirth: Yup.date()
-    .max(new Date(), "La date de naissance ne peut pas être dans le futur")
+    .max(new Date(new Date().setFullYear(new Date().getFullYear() - 18)),"L'employée doit avoir au moins 18 ans")
     .required("La date de naissance est requise"),
   startDate: Yup.date()
-    .max(new Date(), "La date de début ne peut pas être dans le futur")
     .required("La date de début est requise"),
   street: Yup.string().trim().required("L’adresse est requise"),
   city: Yup.string().trim().required("La ville est requise"),
@@ -32,15 +31,17 @@ const FormEmployee = () => {
   const handleSubmit = (values, { resetForm }) => {
     const newEmployee = { ...values, id: Date.now() };
 
-    // Désinfection des données
     const sanitizedEmployee = {
       ...newEmployee,
       name: DOMPurify.sanitize(newEmployee.name),
       lastName: DOMPurify.sanitize(newEmployee.lastName),
+      dateOfBirth: DOMPurify.sanitize(newEmployee.dateOfBirth),  
+      startDate: DOMPurify.sanitize(newEmployee.startDate),    
       street: DOMPurify.sanitize(newEmployee.street),
       city: DOMPurify.sanitize(newEmployee.city),
       stateCode: DOMPurify.sanitize(newEmployee.stateCode),
       zipCode: DOMPurify.sanitize(newEmployee.zipCode),
+      department: DOMPurify.sanitize(newEmployee.department),     
     };
 
     addEmployee(sanitizedEmployee);
