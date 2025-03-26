@@ -119,7 +119,7 @@ const FormEmployee = () => {
           </Field>
             <ErrorMessage name="department" component="div" className="error" />
 
-            <button type="submit" disabled={!isValid}>Add</button>
+            <button type="submit" disabled={!isValid}>Save</button>
           </Form>
         )}
       </Formik>
