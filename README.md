@@ -27,23 +27,30 @@ git clone https://github.com/Chloe-86/clodr-oc-hrnet.git
 
 cd clodr-oc-hrnet
 
-3.  Installer les dépendances :
+3. Passer à la branche `redux` :
+
+git checkout redux
+
+4.  Installer les dépendances :
 
 npm install
 
 
-4.  Démarrer le serveur de développement :
+5.  Démarrer le serveur de développement :
 
 npm run dev
 
 
-5.  Ouvrez votre navigateur et accédez à `http://localhost:5173` pour visualiser l'application.
+6.  Ouvrez votre navigateur et accédez à `http://localhost:5173` pour visualiser l'application.
 
 ### Structure du Projet
 
 -   `src/` : Contient le code source principal de l'application.
 -   `components/` : Composants React.
--   `context/` : Store Redux.
+-   `redux/` : Store persistant et reducer Redux .
+-   `data/` : contient la liste des états pour le formulaire.
+-   `pages/` : Les pages pour créer un employée et voir les employées existants.
+-   `router/` : Pour la navigation entre les pages.
 -   `App.jsx` : Composant principal de l'application.
 -   `main.jsx` : Point d'entrée de l'application.
 -   `index.html` : Fichier HTML principal.
