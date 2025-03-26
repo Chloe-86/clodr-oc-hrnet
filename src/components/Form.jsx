@@ -1,31 +1,32 @@
-import { useContext, useState } from "react";
+import {useState } from "react";
 import Modal from "@clodr/oc-cdr-react-modal"
 import { states } from "../data/states.js";
-import { StoreContext } from "../context/StoreContext.jsx";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import DOMPurify from "dompurify";
+import { useDispatch } from 'react-redux';
 
 // Schéma de validation avec Yup
 const validationSchema = Yup.object({
-  name: Yup.string().trim().required("Le nom est requis"),
-  lastName: Yup.string().trim().required("Le prénom est requis"),
+  name: Yup.string().trim().required("Firstname is required"),
+  lastName: Yup.string().trim().required("Lastname is required"),
   dateOfBirth: Yup.date()
-    .max(new Date(new Date().setFullYear(new Date().getFullYear() - 18)),"L'employée doit avoir au moins 18 ans")
-    .required("La date de naissance est requise"),
+  .required("Date of birth is required"),
+     // décommenter ci dessous pour mettre un age minimum de 18 ans 
+    // .max(new Date(new Date().setFullYear(new Date().getFullYear() - 18)),"The employee must be at least 18 years old")
   startDate: Yup.date()
-    .required("La date de début est requise"),
-  street: Yup.string().trim().required("L’adresse est requise"),
-  city: Yup.string().trim().required("La ville est requise"),
-  stateCode: Yup.string().trim().required("Le code de l’état est requis"),
+    .required("Start date is required"),
+  street: Yup.string().trim().required("Address is required"),
+  city: Yup.string().trim().required("The city is required"),
+  stateCode: Yup.string().trim().required("State code is required"),
   zipCode: Yup.string()
-    .matches(/^\d{5}$/, "Code postal invalide")
-    .required("Le code postal est requis"),
-  department: Yup.string().trim().required("Le département est requis"),
+    .matches(/^\d{5}$/, "Invalid postal code")
+    .required("Postal code is required"),
+  department: Yup.string().trim().required("The department is required"),
 });
 
 const FormEmployee = () => {
-  const { addEmployee } = useContext(StoreContext);
+  const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmit = (values, { resetForm }) => {
@@ -35,16 +36,13 @@ const FormEmployee = () => {
       ...newEmployee,
       name: DOMPurify.sanitize(newEmployee.name),
       lastName: DOMPurify.sanitize(newEmployee.lastName),
-      dateOfBirth: DOMPurify.sanitize(newEmployee.dateOfBirth),  
-      startDate: DOMPurify.sanitize(newEmployee.startDate),    
       street: DOMPurify.sanitize(newEmployee.street),
       city: DOMPurify.sanitize(newEmployee.city),
       stateCode: DOMPurify.sanitize(newEmployee.stateCode),
       zipCode: DOMPurify.sanitize(newEmployee.zipCode),
-      department: DOMPurify.sanitize(newEmployee.department),     
     };
-
-    addEmployee(sanitizedEmployee);
+    dispatch({type: 'ADD_EMPLOYEE', payload: sanitizedEmployee})
+    console.log(sanitizedEmployee)
     resetForm();
     setIsModalOpen(true); // Ouvre la modale après soumission
   };
@@ -68,8 +66,8 @@ const FormEmployee = () => {
       >
         {({ isValid }) => (
           <Form>
-            <label htmlFor="name">First Name</label>
-            <Field type="text" id="name" name="name" />
+            <label  htmlFor="name">First Name</label>
+            <Field autoComplete="name" type="text" id="name" name="name" />
             <ErrorMessage name="name" component="div" className="error" />
 
             <label htmlFor="lastName">Last Name</label>
